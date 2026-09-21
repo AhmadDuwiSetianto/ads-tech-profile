@@ -1,33 +1,36 @@
-<section class="py-20 bg-slate-50 border-t border-slate-100" id="process">
+@extends('layouts.frontend')
+
+@section('content')
+<section class="py-32 bg-white min-h-screen">
   <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
-    <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 text-sky-500 text-xs font-bold uppercase tracking-wider mb-3 border border-blue-100">
-        Workflow
-      </div>
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy tracking-tight">Our Simple Process</h2>
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="px-3.5 py-1 rounded-full bg-blue-50 text-brand-blue text-xs font-bold uppercase tracking-wider border border-blue-100">Workflow</span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-navy tracking-tight mt-4">Tahapan Kerja Kami</h1>
+      <p class="text-slate-600 mt-3 text-sm sm:text-base">Proses terstruktur yang transparan untuk memastikan setiap proyek website diselesaikan tepat waktu dan sesuai ekspektasi.</p>
     </div>
     
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm relative flex flex-col items-center md:items-start text-center md:text-left" data-aos="zoom-in">
-        <span class="text-4xl font-black text-brand-blue select-none">01</span>
-        <h3 class="text-lg font-bold text-brand-navy mt-2 mb-2">Discovery</h3>
-        <p class="text-xs text-slate-500 leading-relaxed">Memahami tujuan bisnis, target audiens, dan spesifikasi fitur yang diperlukan.</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="bg-slate-50 rounded-2xl p-8 border border-slate-100 relative">
+        <span class="text-5xl font-black text-brand-blue/20 absolute top-4 right-6 select-none">01</span>
+        <h3 class="text-xl font-bold text-brand-navy mt-4 mb-3">Discovery</h3>
+        <p class="text-sm text-slate-600 leading-relaxed">Analisis mendalam mengenai kebutuhan bisnis, referensi desain, dan target audiens proyek Anda.</p>
       </div>
-      <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm relative flex flex-col items-center md:items-start text-center md:text-left" data-aos="zoom-in" data-aos-delay="100">
-        <span class="text-4xl font-black text-brand-blue select-none">02</span>
-        <h3 class="text-lg font-bold text-brand-navy mt-2 mb-2">UI/UX Design</h3>
-        <p class="text-xs text-slate-500 leading-relaxed">Merancang mockup visual modern dengan penekanan pada kemudahan navigasi.</p>
+      <div class="bg-slate-50 rounded-2xl p-8 border border-slate-100 relative">
+        <span class="text-5xl font-black text-brand-blue/20 absolute top-4 right-6 select-none">02</span>
+        <h3 class="text-xl font-bold text-brand-navy mt-4 mb-3">UI/UX Design</h3>
+        <p class="text-sm text-slate-600 leading-relaxed">Perancangan tata letak visual antarmuka agar intuitif, modern, dan nyaman digunakan pengunjung.</p>
       </div>
-      <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm relative flex flex-col items-center md:items-start text-center md:text-left" data-aos="zoom-in" data-aos-delay="200">
-        <span class="text-4xl font-black text-brand-blue select-none">03</span>
-        <h3 class="text-lg font-bold text-brand-navy mt-2 mb-2">Development</h3>
-        <p class="text-xs text-slate-500 leading-relaxed">Pengembangan kode yang bersih, responsif, cepat, serta integrasi sistem backend.</p>
+      <div class="bg-slate-50 rounded-2xl p-8 border border-slate-100 relative">
+        <span class="text-5xl font-black text-brand-blue/20 absolute top-4 right-6 select-none">03</span>
+        <h3 class="text-xl font-bold text-brand-navy mt-4 mb-3">Development</h3>
+        <p class="text-sm text-slate-600 leading-relaxed">Implementasi kode sistem menggunakan Laravel & Tailwind CSS yang bersih, aman, dan responsif.</p>
       </div>
-      <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm relative flex flex-col items-center md:items-start text-center md:text-left" data-aos="zoom-in" data-aos-delay="300">
-        <span class="text-4xl font-black text-brand-blue select-none">04</span>
-        <h3 class="text-lg font-bold text-brand-navy mt-2 mb-2">Launch</h3>
-        <p class="text-xs text-slate-500 leading-relaxed">Pengujian menyeluruh performa dan peluncuran website live siap digunakan.</p>
+      <div class="bg-slate-50 rounded-2xl p-8 border border-slate-100 relative">
+        <span class="text-5xl font-black text-brand-blue/20 absolute top-4 right-6 select-none">04</span>
+        <h3 class="text-xl font-bold text-brand-navy mt-4 mb-3">Launch & Support</h3>
+        <p class="text-sm text-slate-600 leading-relaxed">Pengujian performa akhir, publikasi ke server live, serta pendampingan sistem berkelanjutan.</p>
       </div>
     </div>
   </div>
 </section>
+@endsection

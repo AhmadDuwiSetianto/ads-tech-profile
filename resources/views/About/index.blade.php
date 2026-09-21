@@ -1,29 +1,34 @@
-<section id="why-us">
-  <div class="w-full bg-slate-50/50 border-y border-slate-100 py-12 sm:py-16 lg:py-20 px-6 sm:px-10 lg:px-12 shadow-sm relative overflow-hidden">
-    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-      <div class="lg:col-span-6 flex justify-center" data-aos="fade-right">
-        <img src="{{ asset('images/ads web.png') }}" alt="ADS | Tech Web Development" class="w-full max-w-lg h-auto object-contain">
+@extends('layouts.frontend')
+
+@section('content')
+<section class="py-32 bg-slate-50/50 min-h-screen flex items-center">
+  <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-6 flex justify-center">
+        <img src="{{ asset('images/ads web.png') }}" alt="About ADS Tech" class="w-full max-w-lg h-auto object-contain">
       </div>
-      <div class="lg:col-span-6 space-y-6 flex flex-col items-center md:items-start text-center md:text-left" data-aos="fade-left">
-        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-brand-navy leading-snug">Website yang Dibangun untuk Kebutuhan Bisnis Anda</h2>
-        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
-          Setiap website dirancang dengan memperhatikan kebutuhan bisnis, pengalaman pengguna, responsivitas, dan kemudahan pengembangan.
+      <div class="lg:col-span-6 space-y-6 text-left">
+        <span class="px-3.5 py-1 rounded-full bg-blue-50 text-brand-blue text-xs font-bold uppercase tracking-wider border border-blue-100">About Us</span>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-navy leading-tight">Mitra Terpercaya Pengembangan Website & Solusi Digital Bisnis</h1>
+        <p class="text-slate-600 text-base leading-relaxed">
+          ADS | Tech berfokus pada penyediaan layanan pembuatan website profesional, landing page, dan aplikasi berbasis web yang dirancang khusus untuk mendongkrak kredibilitas dan produktivitas bisnis di era digital.
         </p>
-        <div class="space-y-3.5 pt-2 w-full flex flex-col items-start text-left">
-          <div class="flex items-center justify-start gap-3 w-full">
-            <div class="w-5 h-5 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center shrink-0">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path></svg>
-            </div>
-            <span class="text-sm sm:text-base font-medium text-slate-700">Experienced Web Developers &amp; Designers</span>
+        <div class="space-y-4 pt-2">
+          <div class="flex items-center gap-3">
+            <div class="w-6 h-6 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-xs">✓</div>
+            <span class="text-slate-700 font-medium">Tim Pengembang Profesional Berpengalaman</span>
           </div>
-          <div class="flex items-center justify-start gap-3 w-full">
-            <div class="w-5 h-5 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center shrink-0">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path></svg>
-            </div>
-            <span class="text-sm sm:text-base font-medium text-slate-700">Fully Responsive across All Devices</span>
+          <div class="flex items-center gap-3">
+            <div class="w-6 h-6 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-xs">✓</div>
+            <span class="text-slate-700 font-medium">Desain Modern, Responsif, dan Cepat</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-6 h-6 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-xs">✓</div>
+            <span class="text-slate-700 font-medium">Dukungan Pemeliharaan & Konsultasi Berkelanjutan</span>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+@endsection

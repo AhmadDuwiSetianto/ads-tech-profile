@@ -17,39 +17,40 @@ class CompanyProfileController extends Controller
         $projects = Project::latest()->take(4)->get();
         $faqs = Faq::latest()->take(5)->get();
 
-        return view('index', compact('services', 'projects', 'faqs'));
+        // Diubah dari 'index' menjadi 'home'
+        return view('home', compact('services', 'projects', 'faqs'));
     }
 
     // Halaman Detail Services
     public function services(): View
     {
         $services = Service::latest()->get();
-        return view('services.index', compact('services'));
+        return view('Services.index', compact('services'));
     }
 
     // Halaman Detail Portfolio
     public function portfolio(): View
     {
         $projects = Project::latest()->get();
-        return view('portfolio.index', compact('projects'));
+        return view('Portfolio.index', compact('projects'));
     }
 
     // Halaman Detail About
     public function about(): View
     {
-        return view('about.index');
+        return view('About.index');
     }
 
     // Halaman Detail Process
     public function process(): View
     {
-        return view('process.index');
+        return view('Process.index');
     }
 
     // Halaman Detail FAQ
     public function faq(): View
     {
         $faqs = Faq::latest()->get();
-        return view('faq.index', compact('faqs'));
+        return view('FAQ.index', compact('faqs'));
     }
 }
