@@ -1,5 +1,5 @@
 @extends('layouts.frontend')
-
+@section('title', 'Pertanyaan Sering Diajukan (FAQ) | ADS | Tech')
 @section('content')
 <section class="py-32 bg-slate-50/50 min-h-screen">
   <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
