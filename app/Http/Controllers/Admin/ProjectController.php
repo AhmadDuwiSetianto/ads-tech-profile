@@ -11,7 +11,7 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::latest()->paginate(10);
+        $projects = Project::oldest()->paginate(10);
         return view('admin.projects.index', compact('projects'));
     }
 
@@ -67,7 +67,7 @@ class ProjectController extends Controller
             if ($project->image) {
                 Storage::disk('public')->delete($project->image);
             }
-            
+
             // Simpan gambar baru
             $validated['image'] = $request->file('image')->store('projects', 'public');
         }
