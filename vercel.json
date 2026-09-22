@@ -1,21 +1,16 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "api/index.php",
-      "use": "vercel-php@0.7.2"
-    },
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "public"
-      }
+  "outputDirectory": "public",
+  "functions": {
+    "api/index.php": {
+      "runtime": "vercel-php@0.7.2",
+      "maxDuration": 60
     }
-  ],
+  },
   "routes": [
     {
-      "handle": "filesystem"
+      "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|svg|ico|webp|woff|woff2|ttf|eot|json|txt))$",
+      "dest": "/$1"
     },
     {
       "src": "/(.*)",
