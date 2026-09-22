@@ -10,13 +10,22 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-{
-    Schema::create('service', function (Blueprint $table) {
-        $table->id();
-        $table->string('title');
-        $table->text('description');
-        $table->string('icon')->nullable();
-        $table->timestamps();
-    });
-}
+    {
+        Schema::create('service', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->text('description');
+            // Ubah string menjadi text di bawah ini
+            $table->text('icon')->nullable(); 
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('service');
+    }
 };

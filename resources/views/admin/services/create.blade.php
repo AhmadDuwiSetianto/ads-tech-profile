@@ -1,38 +1,47 @@
-<x-admin-layout>
-    <x-slot name="header">
-        <h2 class="font-bold text-2xl text-slate-800 leading-tight">
-            Tambah Service Baru
-        </h2>
-    </x-slot>
+@extends('layouts.admin')
 
-    <div class="max-w-3xl mx-auto">
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
+@section('header')
+    <div class="flex items-center gap-4">
+        <a href="{{ route('admin.services.index') }}" class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-500 hover:text-brand-blue hover:border-brand-blue hover:bg-brand-pale transition-all" title="Kembali">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        </a>
+        <h2 class="font-extrabold text-2xl text-brand-navy tracking-tight leading-tight">
+            Tambah Layanan Baru
+        </h2>
+    </div>
+@endsection
+
+@section('content')
+    <div class="max-w-4xl mx-auto">
+        <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8 sm:p-10">
             <form action="{{ route('admin.services.store') }}" method="POST">
                 @csrf
                 
-                <div class="mb-5">
-                    <label for="title" class="block text-sm font-semibold text-slate-700 mb-2">Judul Service</label>
-                    <input type="text" name="title" id="title" class="block w-full rounded-lg border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm px-4 py-2.5" value="{{ old('title') }}" placeholder="Contoh: Pembuatan Website Custom" required>
-                    @error('title') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror
-                </div>
-
-                <div class="mb-5">
-                    <label for="description" class="block text-sm font-semibold text-slate-700 mb-2">Deskripsi Layanan</label>
-                    <textarea name="description" id="description" rows="4" class="block w-full rounded-lg border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm px-4 py-2.5" placeholder="Tuliskan penjelasan singkat mengenai layanan ini..." required>{{ old('description') }}</textarea>
-                    @error('description') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror
+                <div class="mb-6">
+                    <label for="title" class="block text-sm font-bold text-brand-navy mb-2">Judul Layanan</label>
+                    <input type="text" name="title" id="title" class="w-full rounded-xl border-slate-200 bg-slate-50 px-4 py-3.5 text-sm focus:bg-white focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/10 transition-all outline-none" value="{{ old('title') }}" placeholder="Contoh: Pembuatan Website Custom" required autofocus>
+                    @error('title') <span class="text-red-500 text-xs font-medium mt-2 block">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="mb-6">
-                    <label for="icon" class="block text-sm font-semibold text-slate-700 mb-2">Kode SVG Icon (Opsional)</label>
-                    <textarea name="icon" id="icon" rows="3" class="block w-full rounded-lg border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm font-mono text-slate-500 px-4 py-2.5 bg-slate-50" placeholder="<svg>...</svg>">{{ old('icon') }}</textarea>
-                    <p class="text-xs text-slate-400 mt-1.5">Anda bisa menyalin kode SVG dari Heroicons atau biarkan kosong untuk menggunakan ikon bawaan.</p>
+                    <label for="description" class="block text-sm font-bold text-brand-navy mb-2">Deskripsi Layanan</label>
+                    <textarea name="description" id="description" rows="5" class="w-full rounded-xl border-slate-200 bg-slate-50 px-4 py-3.5 text-sm focus:bg-white focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/10 transition-all outline-none resize-y" placeholder="Tuliskan penjelasan singkat yang menarik mengenai layanan ini..." required>{{ old('description') }}</textarea>
+                    @error('description') <span class="text-red-500 text-xs font-medium mt-2 block">{{ $message }}</span> @enderror
                 </div>
 
-                <div class="flex justify-end gap-3 pt-4 border-t border-slate-100">
-                    <a href="{{ route('admin.services.index') }}" class="bg-white border border-slate-300 text-slate-700 px-5 py-2.5 rounded-lg hover:bg-slate-50 transition text-sm font-medium">Batal</a>
-                    <button type="submit" class="bg-blue-600 text-white px-5 py-2.5 rounded-lg hover:bg-blue-700 transition text-sm font-medium shadow-sm">Simpan Service</button>
+                <div class="mb-8 p-6 rounded-2xl bg-slate-50 border border-slate-100">
+                    <label for="icon" class="block text-sm font-bold text-brand-navy mb-2 flex items-center gap-2">
+                        Kode SVG Icon <span class="px-2 py-0.5 rounded bg-slate-200 text-slate-500 text-[10px] uppercase">Opsional</span>
+                    </label>
+                    <p class="text-xs text-slate-500 mb-3 leading-relaxed">Anda bisa menyalin kode SVG dari <a href="https://heroicons.com" target="_blank" class="text-brand-blue hover:underline">Heroicons</a> atau biarkan kosong untuk menggunakan ikon bawaan. Pastikan kode diawali dengan tag <code>&lt;svg&gt;</code>.</p>
+                    <textarea name="icon" id="icon" rows="3" class="w-full rounded-xl border-slate-200 bg-white px-4 py-3.5 text-sm font-mono text-slate-500 focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/10 transition-all outline-none" placeholder="<svg>...</svg>">{{ old('icon') }}</textarea>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-6 border-t border-slate-100">
+                    <a href="{{ route('admin.services.index') }}" class="inline-flex items-center justify-center px-6 py-3 rounded-full text-sm font-bold bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-brand-navy transition-colors">Batal</a>
+                    <button type="submit" class="inline-flex items-center justify-center px-8 py-3 rounded-full text-sm font-bold bg-brand-blue text-white shadow-md hover:bg-brand-blue-hover focus:ring-4 focus:ring-brand-blue/20 transition-all">Simpan Layanan</button>
                 </div>
             </form>
         </div>
     </div>
-</x-admin-layout>
+@endsection

@@ -1,51 +1,94 @@
-<x-admin-layout>
-    <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-bold text-2xl text-slate-800 leading-tight">
-                Kelola Layanan (Services)
-            </h2>
-            <a href="{{ route('admin.services.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg text-sm transition shadow-sm">
-                + Tambah Service
-            </a>
-        </div>
-    </x-slot>
+@extends('layouts.admin')
 
+@section('header')
+    <h2 class="font-extrabold text-2xl text-brand-navy tracking-tight leading-tight">
+        Kelola Layanan (Services)
+    </h2>
+@endsection
+
+@section('content')
+    <!-- Alert Success -->
     @if(session('success'))
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg relative mb-6 shadow-sm">
-            {{ session('success') }}
+        <div class="flex items-center gap-3 bg-emerald-50 border border-emerald-200 text-emerald-700 px-5 py-4 rounded-xl mb-6 shadow-sm">
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+            <span class="font-semibold text-sm">{{ session('success') }}</span>
         </div>
     @endif
 
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+    <!-- Toolbar Atas Tabel (Posisi Tombol Tambah di atas) -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+        <p class="text-sm text-slate-500 font-medium">
+            Daftar semua layanan yang ditampilkan pada halaman utama website.
+        </p>
+        <a href="{{ route('admin.services.create') }}" class="inline-flex items-center gap-2 bg-brand-blue hover:bg-brand-blue-hover text-white font-bold py-2.5 px-6 rounded-full text-sm transition-all shadow-md shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
+            + Tambah Service
+        </a>
+    </div>
+
+    <!-- Data Table Card -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full whitespace-no-wrap border-collapse">
+            <table class="w-full text-left border-collapse">
                 <thead>
-                    <tr class="text-left font-bold bg-slate-50 border-b border-slate-100 text-slate-600 text-sm tracking-wider uppercase">
-                        <th class="px-6 py-4">Title</th>
-                        <th class="px-6 py-4">Description</th>
-                        <th class="px-6 py-4 text-center">Aksi</th>
+                    <tr class="bg-slate-50 border-b border-slate-200">
+                        <th class="py-4 px-6 text-xs font-bold text-slate-500 uppercase tracking-wider w-1/4">Layanan</th>
+                        <th class="py-4 px-6 text-xs font-bold text-slate-500 uppercase tracking-wider">Deskripsi</th>
+                        <th class="py-4 px-6 text-xs font-bold text-slate-500 uppercase tracking-wider text-center w-40">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
                     @forelse($services as $service)
-                    <tr class="hover:bg-slate-50 transition-colors">
-                        <td class="px-6 py-4 font-semibold text-slate-800">{{ $service->title }}</td>
-                        <td class="px-6 py-4 text-sm text-slate-500">{{ Str::limit($service->description, 80) }}</td>
-                        <td class="px-6 py-4 flex justify-center space-x-4 items-center">
-                            <a href="{{ route('admin.services.edit', $service) }}" class="text-blue-600 hover:text-blue-800 font-medium text-sm transition">Edit</a>
-                            <form action="{{ route('admin.services.destroy', $service) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus layanan ini?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-500 hover:text-red-700 font-medium text-sm transition">Hapus</button>
-                            </form>
+                    <tr class="hover:bg-slate-50/50 transition-colors">
+                        
+                        <!-- Kolom Judul & Icon -->
+                        <td class="py-4 px-6 align-top">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg bg-brand-pale text-brand-blue flex items-center justify-center shrink-0 border border-blue-100">
+                                    {!! $service->icon ?? '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>' !!}
+                                </div>
+                                <span class="font-bold text-brand-navy text-sm">{{ $service->title }}</span>
+                            </div>
+                        </td>
+                        
+                        <!-- Kolom Deskripsi -->
+                        <td class="py-4 px-6 align-top">
+                            <p class="text-sm text-slate-600 line-clamp-2 leading-relaxed">
+                                {{ $service->description }}
+                            </p>
+                        </td>
+                        
+                        <!-- Kolom Aksi -->
+                        <td class="py-4 px-6 align-top text-center">
+                            <div class="flex justify-center items-center gap-3.5">
+                                <!-- Tombol Edit dengan Ikon -->
+                                <a href="{{ route('admin.services.edit', $service) }}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-blue hover:text-brand-navy transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                    Edit
+                                </a>
+                                
+                                <span class="text-slate-200">|</span>
+                                
+                                <!-- Tombol Hapus dengan Ikon -->
+                                <form action="{{ route('admin.services.destroy', $service) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus layanan ini?');" class="inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="inline-flex items-center gap-1.5 text-sm font-semibold text-red-500 hover:text-red-700 transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                        Hapus
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
+                    
                     @empty
+                    <!-- State Kosong Jika Belum Ada Data -->
                     <tr>
-                        <td colspan="3" class="px-6 py-8 text-center text-slate-500">
+                        <td colspan="3" class="py-16 px-6 text-center">
                             <div class="flex flex-col items-center justify-center">
-                                <svg class="w-12 h-12 text-slate-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
-                                Belum ada data layanan. Silakan tambah baru.
+                                <svg class="w-12 h-12 text-slate-300 mb-3" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
+                                <p class="text-slate-500 font-medium text-sm">Belum ada data layanan.</p>
                             </div>
                         </td>
                     </tr>
@@ -53,10 +96,12 @@
                 </tbody>
             </table>
         </div>
+        
+        <!-- Pagination -->
         @if($services->hasPages())
-        <div class="p-4 border-t border-slate-100">
+        <div class="px-6 py-4 border-t border-slate-100 bg-slate-50/50">
             {{ $services->links() }}
         </div>
         @endif
     </div>
-</x-admin-layout>
+@endsection

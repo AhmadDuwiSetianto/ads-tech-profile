@@ -26,11 +26,11 @@ class ProjectController extends Controller
             'title' => 'required|string|max:255',
             'category' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:5120',
             'link' => 'nullable|url',
         ]);
 
-        // Proses Upload Gambar
+        // Proses Upload Gambar ke public/storage/projects
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('projects', 'public');
         }
@@ -57,13 +57,13 @@ class ProjectController extends Controller
             'title' => 'required|string|max:255',
             'category' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:5120',
             'link' => 'nullable|url',
         ]);
 
         // Cek jika ada gambar baru yang diupload
         if ($request->hasFile('image')) {
-            // Hapus gambar lama jika ada
+            // Hapus gambar lama dari storage fisik jika ada
             if ($project->image) {
                 Storage::disk('public')->delete($project->image);
             }
@@ -80,7 +80,7 @@ class ProjectController extends Controller
 
     public function destroy(Project $project)
     {
-        // Hapus gambar dari storage saat data project dihapus
+        // Hapus file gambar dari storage saat data project dihapus
         if ($project->image) {
             Storage::disk('public')->delete($project->image);
         }

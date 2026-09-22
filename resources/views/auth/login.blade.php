@@ -4,63 +4,119 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Login - ADS | Tech</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/AdsTech.png') }}">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
+    <!-- Tailwind Custom Config -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { navy: '#0B1F33', dark: '#071524', blue: '#2563EB', 'blue-hover': '#1D4ED8', pale: '#EFF6FF', slate: '#5A6E82' }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-slate-50 font-sans text-slate-800 antialiased selection:bg-blue-600 selection:text-white">
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
+<body class="bg-slate-50 font-sans text-slate-800 antialiased selection:bg-brand-blue selection:text-white flex flex-col min-h-screen">
+    
+    <!-- Tombol Kembali ke Beranda -->
+    <div class="absolute top-6 left-6 sm:top-8 sm:left-10">
+        <a href="{{ route('home') }}" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-brand-blue transition-colors group">
+            <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            Kembali ke Beranda
+        </a>
+    </div>
+
+    <!-- Container Utama -->
+    <div class="flex-1 flex flex-col justify-center items-center px-6 py-12">
         
         <!-- Logo Area -->
-        <div class="mb-8 text-center">
-            <div class="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-600/30">
-                <span class="text-2xl font-bold text-white">ADS</span>
+        <div class="mb-8 text-center sm:mx-auto sm:w-full sm:max-w-md">
+            <div class="w-20 h-20 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm border border-slate-100 transition-transform hover:scale-105">
+                <img src="{{ asset('images/AdsTech.png') }}" alt="ADS Tech Logo" class="w-12 h-12 object-contain">
             </div>
-            <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Admin Portal</h1>
-            <p class="text-sm text-slate-500 mt-1">Masuk untuk mengelola konten website</p>
+            <h2 class="text-3xl font-extrabold text-brand-navy tracking-tight">Portal Admin</h2>
+            <p class="text-sm font-medium text-slate-500 mt-2">Silakan masuk untuk mengelola sistem Anda</p>
         </div>
 
         <!-- Login Card -->
-        <div class="w-full sm:max-w-md mt-2 px-8 py-10 bg-white shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden sm:rounded-2xl">
-            <!-- Session Status -->
-            <x-auth-session-status class="mb-4" :status="session('status')" />
+        <div class="w-full sm:max-w-md bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 rounded-3xl px-8 py-10">
+            
+            <!-- Session Status (Perbaikan) -->
+            @if (session('status'))
+                <div class="mb-5 font-medium text-sm text-emerald-600 bg-emerald-50 px-4 py-3 rounded-xl border border-emerald-200">
+                    {{ session('status') }}
+                </div>
+            @endif
 
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('login') }}" class="space-y-6">
                 @csrf
 
                 <!-- Email Address -->
                 <div>
-                    <label for="email" class="block font-medium text-sm text-slate-700">Email Address</label>
-                    <input id="email" class="block mt-1 w-full rounded-lg border-slate-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm transition" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-                    <x-input-error :messages="$errors->get('email')" class="mt-2 text-red-500 text-xs" />
+                    <label for="email" class="block text-sm font-bold text-brand-navy mb-1.5">Alamat Email</label>
+                    <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" 
+                        class="w-full rounded-xl border-slate-200 bg-slate-50 px-4 py-3.5 text-sm focus:bg-white focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/10 transition-all outline-none" 
+                        placeholder="admin@adstech.id">
+                    
+                    <!-- Input Error (Perbaikan) -->
+                    @error('email')
+                        <p class="mt-2 text-red-500 text-xs font-medium">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- Password -->
-                <div class="mt-6">
-                    <div class="flex justify-between items-center">
-                        <label for="password" class="block font-medium text-sm text-slate-700">Password</label>
-                    </div>
-                    <input id="password" class="block mt-1 w-full rounded-lg border-slate-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm transition" type="password" name="password" required autocomplete="current-password" />
-                    <x-input-error :messages="$errors->get('password')" class="mt-2 text-red-500 text-xs" />
+                <div>
+                    <label for="password" class="block text-sm font-bold text-brand-navy mb-1.5">Kata Sandi</label>
+                    <input id="password" type="password" name="password" required autocomplete="current-password" 
+                        class="w-full rounded-xl border-slate-200 bg-slate-50 px-4 py-3.5 text-sm focus:bg-white focus:border-brand-blue focus:ring-4 focus:ring-brand-blue/10 transition-all outline-none" 
+                        placeholder="••••••••">
+                    
+                    <!-- Input Error (Perbaikan) -->
+                    @error('password')
+                        <p class="mt-2 text-red-500 text-xs font-medium">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- Remember Me -->
-                <div class="block mt-4">
-                    <label for="remember_me" class="inline-flex items-center">
-                        <input id="remember_me" type="checkbox" class="rounded border-slate-300 text-blue-600 shadow-sm focus:ring-blue-500" name="remember">
-                        <span class="ms-2 text-sm text-slate-600">Ingat Saya</span>
+                <div class="flex items-center justify-between">
+                    <label for="remember_me" class="inline-flex items-center cursor-pointer group">
+                        <input id="remember_me" type="checkbox" name="remember" 
+                            class="rounded border-slate-300 text-brand-blue shadow-sm focus:ring-brand-blue w-4 h-4 transition-colors cursor-pointer">
+                        <span class="ms-2.5 text-sm font-semibold text-slate-600 group-hover:text-brand-navy transition-colors">Ingat Saya</span>
                     </label>
                 </div>
 
-                <div class="mt-8">
-                    <button type="submit" class="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                <!-- Submit Button -->
+                <div class="pt-2">
+                    <button type="submit" 
+                        class="w-full inline-flex items-center justify-center py-3.5 px-4 rounded-full shadow-md text-sm font-bold text-white bg-brand-blue hover:bg-brand-blue-hover focus:outline-none focus:ring-4 focus:ring-brand-blue/20 transition-all">
                         Masuk ke Dashboard
                     </button>
                 </div>
             </form>
         </div>
-        
-        <div class="mt-8 text-xs text-slate-400">
-            &copy; 2026 ADS | Tech. All rights reserved.
-        </div>
     </div>
+    
+    <!-- Footer -->
+    <div class="pb-8 text-center text-xs font-medium text-slate-400">
+        &copy; 2026 ADS | Tech. Hak Cipta Dilindungi Undang-Undang.
+    </div>
+
 </body>
 </html>
